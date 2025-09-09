@@ -6,7 +6,6 @@ import HireMe from "./HireMe";
 import LatestWork from "./LatestWork";
 import ScrollProject from "./ScrollProject";
 import Vission from "./Vission";
-
 const Home = () => {
     return (
         <>
@@ -17,7 +16,7 @@ const Home = () => {
             <HireMe />
             <LatestWork />
             <Blogs />
-            <Vission /> 
+            <Vission />
         </>
     )
 }

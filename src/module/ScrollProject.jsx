@@ -45,8 +45,8 @@ const ScrollProject = () => {
   return (
     <div className="overflow-hidden w-full pb-10">
       <div ref={containerRef} className="flex whitespace-nowrap">
-        {[...portfolioData, ...portfolioData].map((card) => (
-          <div key={card.id}>
+        {[...portfolioData, ...portfolioData].map((card, i) => (
+          <div key={i}>
             <div
               ref={addToRefs}
               style={{

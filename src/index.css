@@ -301,6 +301,11 @@ img.portfolio-img {
   box-shadow: 0 10px 20px rgba(82, 45, 45, 0.3);
 }
 
+/* //Scroll Padding */
+#about, #contact{
+  scroll-padding-top: 350px;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .cta-text {
