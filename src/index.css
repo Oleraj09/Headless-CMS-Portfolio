@@ -302,8 +302,10 @@ img.portfolio-img {
 }
 
 /* //Scroll Padding */
-#about, #contact{
-  scroll-padding-top: 350px;
+#about, #contact, #blog, #portfolios, #contact{
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px !important;
+    scroll-margin-top: 100px !important;
 }
 
 /* Responsive adjustments */

@@ -5,8 +5,8 @@ import useFetch from '../ContextAPI/FetchApi';
 const LatestWork = () => {
   const [data] = useFetch("https://post.olerajhossin.top/wp-json/wp/v2/portfolio?acf_format=standard")
   return (
-    <section className="container auto-center">
-      <p className="text-center">● Portfolio</p>
+    <section className="container auto-center" id="portfolios">
+      <p className="text-center" style={{marginTop:"20px"}}>● Portfolio</p>
       <h2 className="section-title text-center">My Works</h2>
       <div className="works-grid">
         {data && data.map((work) => (

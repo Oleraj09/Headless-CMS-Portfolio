@@ -3,7 +3,7 @@ import useFetch from '../ContextAPI/FetchApi';
 const Blogs = () => {
   const [data] = useFetch("https://post.olerajhossin.top/wp-json/wp/v2/posts?acf_format=standard")
   return (
-    <section className="latest-works">
+    <section className="latest-works" id="blogs">
       <p className="text-center">● Blogs</p>
       <h2 className="section-title text-center">Latest News</h2>
       <div className="blogs-grid">

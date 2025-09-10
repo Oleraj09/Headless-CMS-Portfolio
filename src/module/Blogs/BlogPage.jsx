@@ -4,16 +4,19 @@ import blogImg from "../../assets/blogs.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAt, faLayerGroup } from "@fortawesome/free-solid-svg-icons";
 import Vission from "../Vission";
+import useFetch from '../../ContextAPI/FetchApi';
 const BlogPage = () => {
-    const allPosts = Array.from({ length: 30 }).map((_, i) => ({
-        id: i + 1,
-        image: "https://images.unsplash.com/photo-1750711642160-efc6e052751a?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        date: "21 June 2025",
-        category: "Laravel Tips",
-        title: `Blog Post Title ${i + 1} Where post is done by user${i + 1} `,
-        slug: `blog-post-${i + 1}`,
-        author: "Admin"
-    }));
+    const [data] = useFetch("https://post.olerajhossin.top/wp-json/wp/v2/posts?_embed&acf_format=standard")
+    const formatACFDate = (acfDate) => {
+    if (!acfDate) return "";
+    const dateObj = new Date(acfDate); 
+    if (isNaN(dateObj)) return "";
+    return dateObj.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+    });
+    };
 
     const POSTS_PER_PAGE = 9;
     const LOAD_MORE_COUNT = 6;
@@ -21,7 +24,7 @@ const BlogPage = () => {
     const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE);
     const [isLoading, setIsLoading] = useState(false);
 
-    const visiblePosts = allPosts.slice(0, visibleCount);
+    const visiblePosts = data && data.slice(0, visibleCount);
 
     const handleLoadMore = () => {
         setIsLoading(true);
@@ -41,27 +44,27 @@ const BlogPage = () => {
             <section className="container auto-center">
                 <h2 className="text-3xl font-bold" style={{padding:"30px 0"}}>All Blog Posts</h2>
                 <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-                    {visiblePosts.map((blog) => (
+                    {visiblePosts && visiblePosts.map((blog) => (
                         <a
                             key={blog.id}
-                            href={`/blog/${blog.slug}`}
+                            href={`/blog/${blog.id}`}
                             className="blog-card"
                         >
                             <div className="work-number relative rounded-[25px]">
-                                <img src={blog.image} alt="" className="portfolio-img rounded-[10px]" />
+                                <img src={blog.acf.post_image.url} alt={blog.title.rendered} className="portfolio-img rounded-[10px]" />
                                 <div className="absolute right-[20px] top-[10px]">
-                                    <p className="text-[#fff] bg-[#222] rounded-[25px] px-3 text-[12px] md:text-[14px]" style={{ padding: "5px 10px" }}>{blog.date}</p>
+                                    <p className="text-[#fff] bg-[#222] rounded-[25px] px-3 text-[12px] md:text-[14px]" style={{ padding: "5px 10px" }}>{formatACFDate(blog.date)}</p>
                                 </div>
                             </div>
                             <div className="px-3 pt-3 pb-5">
-                                <div className="text-[#222] text-[12px] md:text-[16px]"><FontAwesomeIcon icon={faLayerGroup}></FontAwesomeIcon> {blog.category} — <FontAwesomeIcon icon={faAt}></FontAwesomeIcon> {blog.author}</div>
-                                <h3 className="work-title leading-none">&#187; {blog.title}</h3>
+                                <div className="text-[#222] text-[12px] md:text-[16px]"><FontAwesomeIcon icon={faLayerGroup}></FontAwesomeIcon> {blog.acf.category_name.name} — <FontAwesomeIcon icon={faAt}></FontAwesomeIcon> {blog._embedded.author[0].name}</div>
+                                <h3 className="work-title leading-none">&#187; {blog.title.rendered}</h3>
                             </div>
                         </a>
                     ))}
                 </div>
 
-                {visibleCount < allPosts.length && (
+                {visibleCount < data?.length && (
                     <div className="py-10 text-center">
                         {isLoading ? (
                             <div className="flex justify-center items-center gap-2">

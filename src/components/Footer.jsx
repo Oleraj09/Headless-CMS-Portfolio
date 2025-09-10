@@ -7,8 +7,8 @@ const Footer = () => {
                 <ul className="flex flex-col md:flex-row items-center gap-y-4 md:gap-x-12">
                     <li className="text-white text-[16px] cursor-pointer"><a href="/#home" className="cursor-change">Home</a></li>
                     <li className="text-white text-[16px] cursor-pointer"><a href="/#about" className="cursor-change">About Me</a></li>
-                    <li className="text-white text-[16px] cursor-pointer"><a href="/portfolios" className="cursor-change">Portfolio</a></li>
-                    <li className="text-white text-[16px] cursor-pointer"><a href="/blogs" className="cursor-change">Blog</a></li>
+                    <li className="text-white text-[16px] cursor-pointer"><a href="/#portfolios" className="cursor-change">Portfolio</a></li>
+                    <li className="text-white text-[16px] cursor-pointer"><a href="/#blogs" className="cursor-change">Blog</a></li>
                 </ul>
                 <p className="text-white text-[20px] md:text-[30px] lg:text-[45px] text-center md:text-right break-words">
                     <a href="mailto:olerajhossin@gmail.com" className="cursor-change">{site?.acf?.enter_email_adress}</a>

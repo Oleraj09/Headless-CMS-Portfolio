@@ -29,7 +29,7 @@ const HeroSection = () => {
                                 <p className="stroke text-center sm:text-left">— {site?.acf?.hello}</p>
                             </div>
                         </div>
-                        <div className="absolute scroll-btn bottom-[0px]">
+                        <div className="absolute z-[999999] scroll-btn bottom-[0px]">
                             <a href="#about">
                                 <button className="flex items-center gap-[10px] cursor-change">
                                     <p className="text whitespace-nowrap break-normal text-[20px]">Scroll Down </p>
