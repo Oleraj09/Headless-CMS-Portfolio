@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowTrendUp, faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { useSiteSettings } from "../ContextAPI/SiteSettingContextAPI";
+
 const Navbar = () => {
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [animation, setAnimation] = useState(false);
@@ -21,7 +21,7 @@ const Navbar = () => {
             setMobileMenuOpen(false);
         }, 200);
     };
-    const site = useSiteSettings();
+
     return (
         <>
             <div className="fixed container autos-center h-[60px] sm:h-[100px] z-[999]">
@@ -48,7 +48,7 @@ const Navbar = () => {
 
                     {/* Hire Me Button */}
                     <div className="hidden sm:flex cursor-change items-center text-[18px] gap-x-[10px] border-[1px] rounded-full w-[140px] justify-center">
-                        <a href={site?.acf?.hire_me} className="cursor-change" onClick={handleLinkClickContact}>Hire Me <FontAwesomeIcon icon={faArrowTrendUp} /></a>
+                        <a href="#contact" className="cursor-change" onClick={handleLinkClickContact}>Hire Me <FontAwesomeIcon icon={faArrowTrendUp} /></a>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -75,7 +75,7 @@ const Navbar = () => {
                         <li><a href="#service" onClick={handleLinkClick}>Services</a></li>
                         <li><a href="#blog" onClick={handleLinkClick}>Blog</a></li>
                         <li className="border-[1px] rounded-full w-[140px] flex items-center justify-center">
-                            <a href={site?.acf?.hire_me} onClick={handleLinkClickContact} className="flex items-center gap-x-2">
+                            <a href="#contact" onClick={handleLinkClickContact} className="flex items-center gap-x-2">
                                 Hire Me <FontAwesomeIcon icon={faArrowTrendUp} />
                             </a>
                         </li>

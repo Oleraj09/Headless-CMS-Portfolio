@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons/faArrowUpRightFromSquare';
 import useFetch from '../ContextAPI/FetchApi';
 const Blogs = () => {
   const [data] = useFetch("https://post.olerajhossin.top/wp-json/wp/v2/posts?acf_format=standard")

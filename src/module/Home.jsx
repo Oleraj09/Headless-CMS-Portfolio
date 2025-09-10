@@ -6,7 +6,13 @@ import HireMe from "./HireMe";
 import LatestWork from "./LatestWork";
 import ScrollProject from "./ScrollProject";
 import Vission from "./Vission";
+import { useSiteSettings } from "../ContextAPI/SiteSettingContextAPI";
+import Loader from "../components/Loader";
 const Home = () => {
+    const site = useSiteSettings();
+    if (!site) {
+        return <Loader />
+    }
     return (
         <>
             <HeroSection />
