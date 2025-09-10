@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import TitleBar from "../../components/TitleBar";
 import Vission from "../Vission";
 import portfolioImg from "../../assets/portfolio.jpg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import useFetch from "../../ContextAPI/FetchApi";
 
 const PortfolioPage = () => {
@@ -105,7 +103,7 @@ const PortfolioPage = () => {
                     <div className="works-grid">
                         {visiblePortfolio.map((work) => (
                             <a
-                                href={work?.link || "#"}
+                                href={`/portfolios-details/${work.id}`}
                                 className="work-card hover:shadow-lg "
                                 key={work?.id}
                                 target="_blank"

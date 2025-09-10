@@ -8,14 +8,14 @@ import useFetch from '../../ContextAPI/FetchApi';
 const BlogPage = () => {
     const [data] = useFetch("https://post.olerajhossin.top/wp-json/wp/v2/posts?_embed&acf_format=standard")
     const formatACFDate = (acfDate) => {
-    if (!acfDate) return "";
-    const dateObj = new Date(acfDate); 
-    if (isNaN(dateObj)) return "";
-    return dateObj.toLocaleDateString("en-US", {
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-    });
+        if (!acfDate) return "";
+        const dateObj = new Date(acfDate);
+        if (isNaN(dateObj)) return "";
+        return dateObj.toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+        });
     };
 
     const POSTS_PER_PAGE = 9;
@@ -42,12 +42,12 @@ const BlogPage = () => {
                 description="Latest News and Updates."
             />
             <section className="container auto-center">
-                <h2 className="text-3xl font-bold" style={{padding:"30px 0"}}>All Blog Posts</h2>
+                <h2 className="text-3xl font-bold" style={{ padding: "30px 0" }}>All Blog Posts</h2>
                 <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
                     {visiblePosts && visiblePosts.map((blog) => (
                         <a
                             key={blog.id}
-                            href={`/blog/${blog.id}`}
+                            href={`/blogs-details/${blog.id}`}
                             className="blog-card"
                         >
                             <div className="work-number relative rounded-[25px]">
@@ -100,6 +100,7 @@ const BlogPage = () => {
                         )}
                     </div>
                 )}
+                <div style={{ marginBottom: "60px" }}></div>
             </section>
             <Vission />
         </>

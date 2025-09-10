@@ -11,7 +11,7 @@ const LatestWork = () => {
       <div className="works-grid">
         {data && data.map((work) => (
           <a
-            href="#"
+            href={`/portfolios-details/${work.id}`}
             className="work-card group"
             key={work.id}
           >

@@ -1,11 +1,27 @@
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSiteSettings } from "../ContextAPI/SiteSettingContextAPI";
+import { useEffect, useState } from "react";
+import replacesImg from "../assets/replaces.png"; 
 const HeroSection = () => {
     const site = useSiteSettings();
+    const [imageSrc, setImageSrc] = useState(site?.acf?.hello_image);
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 1024) {
+                setImageSrc(site?.acf?.hello_image);
+            } else {
+                setImageSrc(replacesImg);
+            }
+        };
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, [site?.acf?.hello_image]);
+    console.log(imageSrc);
     return (
         <>
-            <div className="h-[100vh] bg-[#f8f8f8] bg-ole" id="home" style={{ backgroundImage: `url(${site?.acf?.hello_image})` }}>
+            <div className="h-[100vh] bg-[#f8f8f8] bg-ole" id="home" style={{ backgroundImage: `url(${imageSrc})` }}>
                 <div className="relative h-[80vh] center-top-bottom">
                     <div className="text-flo relative h-full container auto-center">
                         <div className="relative h-[75vh] left-0 top-[10%] left-line">

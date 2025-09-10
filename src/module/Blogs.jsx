@@ -9,7 +9,7 @@ const Blogs = () => {
       <div className="blogs-grid">
         {data && data.map((work) => (
           <a
-            href="#"
+            href={`/blogs-details/${work.id}`}
             className="blog-card"
             key={work.id}
           >
