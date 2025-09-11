@@ -5,6 +5,7 @@
   /* padding: 0; */
   box-sizing: border-box;
 }
+
 h1,
 h2,
 h3,
@@ -68,7 +69,8 @@ a:hover,
     background: rgba(0, 0, 0, 0.05);
     /* z-index: 1; */
   }
-  .stroke{
+
+  .stroke {
     -webkit-text-stroke: #222;
     -webkit-text-stroke-width: 0.5px;
   }
@@ -194,6 +196,7 @@ a:hover,
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  aspect-ratio: 16 / 9;
 }
 
 .work-type {
@@ -301,10 +304,14 @@ img.portfolio-img {
 }
 
 /* //Scroll Padding */
-#about, #contact, #blog, #portfolios, #contact{
-    scroll-behavior: smooth;
-    scroll-padding-top: 100px !important;
-    scroll-margin-top: 100px !important;
+#about,
+#contact,
+#blog,
+#portfolios,
+#contact {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px !important;
+  scroll-margin-top: 100px !important;
 }
 
 /* Responsive adjustments */

@@ -11,8 +11,6 @@ const Vission = () => {
   });
 
   const [errors, setErrors] = useState({});
-  const [formMessage, setFormMessage] = useState("");
-
   const handleAppointmentClick = () => {
     setLoading(true);
     setTimeout(() => {
@@ -24,7 +22,7 @@ const Vission = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: "" })); // clear error on change
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   const validateForm = () => {
@@ -39,7 +37,6 @@ const Vission = () => {
 
   const submitGravityForm = async (e) => {
     e.preventDefault();
-    setFormMessage("");
 
     if (!validateForm()) return;
 
@@ -59,12 +56,10 @@ const Vission = () => {
           }),
         }
       );
-
       const result = await response.json();
       console.log(result);
 
       if (result.is_valid === false) {
-        // Map Gravity Forms validation errors to our fields
         const gfErrors = {};
         for (const key in result.validation_messages) {
           if (key === "1") gfErrors.name = result.validation_messages[key];
@@ -73,16 +68,13 @@ const Vission = () => {
           if (key === "5") gfErrors.idea = result.validation_messages[key];
         }
         setErrors(gfErrors);
-        setFormMessage("Please fix the errors above.");
       } else {
-        setFormMessage("Form submitted successfully!");
         setFormData({ name: "", email: "", budget: "", idea: "" });
         setErrors({});
         setShowForm(false);
       }
     } catch (error) {
       console.error(error);
-      setFormMessage("Error submitting form. Please try again later.");
     }
   };
 
@@ -92,6 +84,7 @@ const Vission = () => {
         <div className="cta-content">
           <h1 className="text-[28px] leading-none">Got a Vision?</h1>
           <h2 className="text-[46px] leading-none">Let's Bring It to Life!</h2>
+          <h1 className="text-[28px] leading-none font-bold" style={{ marginTop: "10px" }}>Contact Us</h1>
           <p className="cta-text">
             I'm always excited to collaborate on new and innovative projects. Whether you're starting from scratch or refining an existing idea
           </p>
@@ -101,9 +94,8 @@ const Vission = () => {
           <button
             onClick={handleAppointmentClick}
             disabled={loading}
-            className={`cta-button cursor-change transition duration-300 ${
-              loading ? "opacity-60 cursor-not-allowed" : ""
-            }`}
+            className={`cta-button cursor-change transition duration-300 ${loading ? "opacity-60 cursor-not-allowed" : ""
+              }`}
           >
             {loading ? "Loading..." : "Make an Appointment"}
           </button>

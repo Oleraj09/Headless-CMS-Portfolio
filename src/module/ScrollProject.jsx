@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useFetch from '../ContextAPI/FetchApi';
 
 const ScrollProject = () => {
@@ -40,42 +39,50 @@ const ScrollProject = () => {
     }, containerRef);
 
     return () => ctx.revert();
-  }, [portfolioData]); 
+  }, [portfolioData]);
+
+  const isLoading = portfolioData.length === 0;
 
   return (
-    <div className="overflow-hidden w-full pb-10">
+    <div className="overflow-hidden w-full pb-2">
       <div ref={containerRef} className="flex whitespace-nowrap">
-        {[...portfolioData, ...portfolioData].map((card, i) => (
-          <div key={i}>
+        {isLoading
+          ? Array.from({ length: 6 }).map((_, i) => (
             <div
-              ref={addToRefs}
-              style={{
-                marginRight: 30,
-                userSelect: 'none',
-              }}
-              className="flex-shrink-0 mr-4 group w-[90vw] sm:w-[600px] md:w-[750px] h-auto"
+              key={i}
+              className="flex-shrink-0 w-[90vw] sm:w-[600px] md:w-[750px] h-auto mr-4 rounded-[25px] overflow-hidden border border-gray-200 animate-pulse"
             >
-              {/* Image section */}
-              <div
-                className="relative w-full aspect-[3/2] bg-cover bg-center"
-                style={{ backgroundImage: `url(${card.acf.project_thumbnail})` }}
-              >
-                 
-              </div>
-
-              {/* Text section */}
-              <div className="portfolio-text py-3 px-2 flex flex-wrap items-baseline gap-2">
-                <p className="text-lg sm:text-xl md:text-2xl font-semibold text-[#222222]">
-                  {card.title.rendered}
-                </p>
-                <p className="text-md sm:text-lg text-[#787878]">for</p>
-                <p className="text-md sm:text-lg text-[#222]">
-                  {card.acf.clients_name}
-                </p>
+              <div className="aspect-[3/2] h-full bg-gray-300"></div>
+              <div className="px-3 pt-3 pb-5">
+                <div className="h-4 bg-gray-300 w-2/3 rounded mb-2"></div>
+                <div className="h-4 bg-gray-300 w-1/2 rounded mb-2"></div>
+                <div className="h-6 bg-gray-300 w-3/4 rounded"></div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+          : [...portfolioData, ...portfolioData].map((card, i) => (
+            <div key={i}>
+              <div
+                ref={addToRefs}
+                style={{ marginRight: 30, userSelect: 'none' }}
+                className="flex-shrink-0 mr-4 group w-[90vw] sm:w-[600px] md:w-[750px] h-auto"
+              >
+                <div
+                  className="relative w-full aspect-[3/2] bg-cover bg-center"
+                  style={{ backgroundImage: `url(${card.acf.project_thumbnail})` }}
+                />
+                <div className="portfolio-text py-3 px-2 flex flex-wrap items-baseline gap-2">
+                  <p className="text-lg sm:text-xl md:text-2xl font-semibold text-[#222222]">
+                    {card.title.rendered}
+                  </p>
+                  <p className="text-md sm:text-lg text-[#787878]">for</p>
+                  <p className="text-md sm:text-lg text-[#222]">
+                    {card.acf.clients_name}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ const SingleBlog = () => {
                     bgImg={portfolioImg}
                     title={data?.title.rendered}
                 />
-                <div className="container" style={{ margin: "auto" }}>
+                <div className="container" style={{ margin: "auto", padding: "0 5%"}}>
                     <div className="pt-10 pb-10">
                         <div className="project-name text-[20px] pb-2">
                             <span className="capitalize">Post Title:</span> <span className="italic text-[#274196]">{data?.title?.rendered}</span>

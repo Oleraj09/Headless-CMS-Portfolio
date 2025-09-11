@@ -34,7 +34,7 @@ const PortfolioPage = () => {
     const handleFilterChange = (newFilter) => {
         setIsLoading(true);
         setFilter(newFilter === "All" ? "All" : Number(newFilter));
-        setVisibleCount(3);
+        setVisibleCount(9);  
     };
 
     useEffect(() => {
@@ -50,13 +50,20 @@ const PortfolioPage = () => {
             />
 
             <div className="container auto-center">
-                <h2 className="text-3xl font-bold text-center" style={{ margin: "20px 0 10px 0" }}>Portfolio List</h2>
+                <h2
+                    className="text-3xl font-bold text-center"
+                    style={{ margin: "20px 0 10px 0" }}
+                >
+                    Portfolio List
+                </h2>
 
                 <div className="filter flex gap-2 justify-center pb-10 flex-wrap">
                     <button
                         key="All"
                         onClick={() => handleFilterChange("All")}
-                        className={`px-5 py-1 uppercase rounded-full cursor-pointer ${filter === "All" ? "bg-[#000] text-white" : "bg-[#ddd] text-[#000]"
+                        className={`px-5 py-1 uppercase rounded-full cursor-pointer transition-all ${filter === "All"
+                                ? "bg-[#000] text-white"
+                                : "bg-[#ddd] text-[#000]"
                             }`}
                     >
                         All
@@ -65,7 +72,7 @@ const PortfolioPage = () => {
                         <button
                             key={cat.id}
                             onClick={() => handleFilterChange(cat.id)}
-                            className={`px-5 py-1 uppercase rounded-full cursor-pointer ${filter === Number(cat.id)
+                            className={`px-5 py-1 uppercase rounded-full cursor-pointer transition-all ${filter === Number(cat.id)
                                     ? "bg-[#000] text-white"
                                     : "bg-[#ddd] text-[#000]"
                                 }`}
@@ -76,38 +83,45 @@ const PortfolioPage = () => {
                 </div>
 
                 {isLoading ? (
-                    <div className="flex justify-center items-center py-20 gap-2">
-                        <svg
-                            className="animate-spin h-5 w-5 text-blue-600"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                        >
-                            <circle
-                                className="opacity-25"
-                                cx="12"
-                                cy="12"
-                                r="10"
-                                stroke="currentColor"
-                                strokeWidth="4"
-                            ></circle>
-                            <path
-                                className="opacity-75"
-                                fill="currentColor"
-                                d="M4 12a8 8 0 018-8v8z"
-                            ></path>
-                        </svg>
-                        <span className="text-[#222222] font-medium">Loading...</span>
+                    <div className="works-grid">
+                        {Array.from({ length: visibleCount }).map((_, i) => (
+                            <div
+                                key={i}
+                                className="rounded-[25px] overflow-hidden border border-gray-200 animate-pulse"
+                            >
+                                <div className="h-48 bg-gray-300"></div>
+                                <div className="px-3 pt-3 pb-5">
+                                    <div className="h-4 bg-gray-300 w-2/3 rounded mb-3"></div>
+                                    <div className="h-4 bg-gray-300 w-1/2 rounded mb-2"></div>
+                                    <div className="h-6 bg-gray-300 w-3/4 rounded"></div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : filteredPortfolio.length === 0 ? (
+                    <div className="works-grid">
+                        {Array.from({ length: visibleCount }).map((_, i) => (
+                            <div
+                                key={i}
+                                className="rounded-[25px] overflow-hidden border border-gray-200 animate-pulse"
+                            >
+                                <div className="h-48 bg-gray-300"></div>
+                                <div className="px-3 pt-3 pb-5">
+                                    <div className="h-4 bg-gray-300 w-2/3 rounded mb-3"></div>
+                                    <div className="h-4 bg-gray-300 w-1/2 rounded mb-2"></div>
+                                    <div className="h-6 bg-gray-300 w-3/4 rounded"></div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 ) : (
                     <div className="works-grid">
                         {visiblePortfolio.map((work) => (
                             <a
                                 href={`/portfolios-details/${work.id}`}
-                                className="work-card hover:shadow-lg "
+                                className="work-card hover:shadow-lg"
                                 key={work?.id}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                                rel="noopener noreferrer nofollow"
                             >
                                 <div className="work-number relative h-[260px] rounded-[25px]">
                                     <img
@@ -120,7 +134,9 @@ const PortfolioPage = () => {
                                     <span className="work-type leading-none italic">
                                         For {work?.acf?.clients_name || "Client"}
                                     </span>
-                                    <h3 className="work-title leading-none">{work?.title?.rendered}</h3>
+                                    <h3 className="work-title leading-none">
+                                        {work?.title?.rendered}
+                                    </h3>
                                 </div>
                             </a>
                         ))}

@@ -16,11 +16,6 @@ const Navbar = () => {
             setMobileMenuOpen(false);
         }, 200);
     };
-    const handleLinkClickContact = () => {
-        setTimeout(() => {
-            setMobileMenuOpen(false);
-        }, 200);
-    };
     const site = useSiteSettings();
     return (
         <>
@@ -36,11 +31,11 @@ const Navbar = () => {
                         <div className="hidden sm:block">
                             <nav>
                                 <ul className="flex gap-x-8 text-[16px]">
-                                    <li><a href="/#home" className="cursor-change">Home</a></li>
-                                    <li><a href="/#about" className="cursor-change">About Me</a></li>
-                                    <li><a href="/#blogs" className="cursor-change">Blogs</a></li>
-                                    <li><a href="/#portfolios" className="cursor-change">Portfolio</a></li>
-                                    <li><a href="/#contact" className="cursor-change">Contact</a></li>
+                                    <li><Link to="/#home" className="cursor-change">Home</Link></li>
+                                    <li><Link to="/#about" className="cursor-change">About Me</Link></li>
+                                    <li><Link to="/blogs" className="cursor-change">Blogs</Link></li>
+                                    <li><Link to="/portfolios" className="cursor-change">Portfolio</Link></li>
+                                    <li><Link to="/#contact" className="cursor-change">Contact</Link></li>
                                 </ul>
                             </nav>
                         </div>
@@ -48,7 +43,7 @@ const Navbar = () => {
 
                     {/* Hire Me Button */}
                     <div className="hidden sm:flex cursor-change items-center text-[18px] gap-x-[10px] border-[1px] rounded-full w-[140px] justify-center">
-                        <a href={site?.acf?.hire_me} className="cursor-change" onClick={handleLinkClickContact}>Hire Me <FontAwesomeIcon icon={faArrowTrendUp} /></a>
+                        <a href={site?.acf?.hire_me} className="cursor-change" onClick={handleLinkClick}>Hire Me <FontAwesomeIcon icon={faArrowTrendUp} /></a>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -70,14 +65,16 @@ const Navbar = () => {
                 </button>
                 <div className="h-[100%] flex items-center justify-center">
                     <ul className="flex flex-col items-center py-10 gap-y-[50px] text-[22px]">
-                        <li><a href="#home " onClick={handleLinkClick}>Home</a></li>
-                        <li><a href="#about" onClick={handleLinkClick}>About Me</a></li>
-                        <li><a href="#portfolio" onClick={handleLinkClick}>Portfolio</a></li>
-                        <li><a href="#blog" onClick={handleLinkClick}>Blogs</a></li>
+                        <li><Link to="/#home " onClick={handleLinkClick}>Home</Link></li>
+                        <li><Link to="/#about" onClick={handleLinkClick}>About Me</Link></li>
+                        <li><Link to="/portfolios" onClick={handleLinkClick}>Portfolio</Link></li>
+                        <li><Link to="/blogs" onClick={handleLinkClick}>Blogs</Link></li>
+                        <li><Link to="/#contact" onClick={handleLinkClick}>Contact</Link></li>
+
                         <li className="border-[1px] rounded-full w-[140px] flex items-center justify-center">
-                            <a href={site?.acf?.hire_me} onClick={handleLinkClickContact} className="flex items-center gap-x-2">
+                            <Link to={site?.acf?.hire_me} onClick={handleLinkClick} className="flex items-center gap-x-2">
                                 Hire Me <FontAwesomeIcon icon={faArrowTrendUp} />
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>

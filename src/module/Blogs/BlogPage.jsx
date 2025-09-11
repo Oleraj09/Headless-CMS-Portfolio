@@ -4,9 +4,13 @@ import blogImg from "../../assets/blogs.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAt, faLayerGroup } from "@fortawesome/free-solid-svg-icons";
 import Vission from "../Vission";
-import useFetch from '../../ContextAPI/FetchApi';
+import useFetch from "../../ContextAPI/FetchApi";
+
 const BlogPage = () => {
-    const [data] = useFetch("https://post.olerajhossin.top/wp-json/wp/v2/posts?_embed&acf_format=standard")
+    const [data, loading] = useFetch(
+        "https://post.olerajhossin.top/wp-json/wp/v2/posts?_embed&acf_format=standard"
+    );
+
     const formatACFDate = (acfDate) => {
         if (!acfDate) return "";
         const dateObj = new Date(acfDate);
@@ -42,29 +46,63 @@ const BlogPage = () => {
                 description="Latest News and Updates."
             />
             <section className="container auto-center">
-                <h2 className="text-3xl font-bold" style={{ padding: "30px 0" }}>All Blog Posts</h2>
+                <h2 className="text-3xl font-bold" style={{ padding: "30px 0" }}>
+                    All Blog Posts
+                </h2>
+
                 <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-                    {visiblePosts && visiblePosts.map((blog) => (
-                        <a
-                            key={blog.id}
-                            href={`/blogs-details/${blog.id}`}
-                            className="blog-card"
-                        >
-                            <div className="work-number relative rounded-[25px]">
-                                <img src={blog.acf.post_image.url} alt={blog.title.rendered} className="portfolio-img rounded-[10px]" />
-                                <div className="absolute right-[20px] top-[10px]">
-                                    <p className="text-[#fff] bg-[#222] rounded-[25px] px-3 text-[12px] md:text-[14px]" style={{ padding: "5px 10px" }}>{formatACFDate(blog.date)}</p>
+                    {!visiblePosts
+                        ? Array.from({ length: POSTS_PER_PAGE }).map((_, i) => (
+                            <div
+                                key={i}
+                                className="rounded-[25px] overflow-hidden border border-gray-200 animate-pulse"
+                            >
+                                <div className="h-48 bg-gray-300"></div>
+                                <div className="px-3 pt-3 pb-5">
+                                    <div className="h-4 bg-gray-300 w-2/3 rounded mb-3"></div>
+                                    <div className="h-4 bg-gray-300 w-1/2 rounded mb-2"></div>
+                                    <div className="h-6 bg-gray-300 w-3/4 rounded"></div>
                                 </div>
                             </div>
-                            <div className="px-3 pt-3 pb-5">
-                                <div className="text-[#222] text-[12px] md:text-[16px]"><FontAwesomeIcon icon={faLayerGroup}></FontAwesomeIcon> {blog.acf.category_name.name} — <FontAwesomeIcon icon={faAt}></FontAwesomeIcon> {blog._embedded.author[0].name}</div>
-                                <h3 className="work-title leading-none">&#187; {blog.title.rendered}</h3>
-                            </div>
-                        </a>
-                    ))}
+                        ))
+                        : visiblePosts &&
+                        visiblePosts.map((blog) => (
+                            <a
+                                key={blog.id}
+                                href={`/blogs-details/${blog.id}`}
+                                className="blog-card"
+                            >
+                                <div className="work-number relative rounded-[25px]">
+                                    <img
+                                        src={blog.acf.post_image.url}
+                                        alt={blog.title.rendered}
+                                        className="portfolio-img rounded-[10px]"
+                                    />
+                                    <div className="absolute right-[20px] top-[10px]">
+                                        <p
+                                            className="text-[#fff] bg-[#222] rounded-[25px] px-3 text-[12px] md:text-[14px]"
+                                            style={{ padding: "5px 10px" }}
+                                        >
+                                            {formatACFDate(blog.date)}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="px-3 pt-3 pb-5">
+                                    <div className="text-[#222] text-[12px] md:text-[16px]">
+                                        <FontAwesomeIcon icon={faLayerGroup}></FontAwesomeIcon>{" "}
+                                        {blog.acf.category_name.name} —{" "}
+                                        <FontAwesomeIcon icon={faAt}></FontAwesomeIcon>{" "}
+                                        {blog._embedded.author[0].name}
+                                    </div>
+                                    <h3 className="work-title leading-none">
+                                        &#187; {blog.title.rendered}
+                                    </h3>
+                                </div>
+                            </a>
+                        ))}
                 </div>
 
-                {visibleCount < data?.length && (
+                {!loading && visibleCount < data?.length && (
                     <div className="py-10 text-center">
                         {isLoading ? (
                             <div className="flex justify-center items-center gap-2">
