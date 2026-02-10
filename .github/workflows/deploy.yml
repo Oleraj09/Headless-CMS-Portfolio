@@ -3,7 +3,7 @@ name: React Build & Deploy
 on:
   push:
     branches:
-      - main
+      - master
   repository_dispatch:
     types: [webhook_trigger]
 
