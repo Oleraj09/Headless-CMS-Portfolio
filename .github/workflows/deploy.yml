@@ -33,7 +33,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }} 
-          port: 22
+          port: 21
           source: "dist/*"
           target: "/home/oleraj/public_html"
           strip_components: 1
